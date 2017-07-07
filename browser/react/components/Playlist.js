@@ -12,13 +12,23 @@ export default class Playlist extends React.Component {
     };
   }
 
- componentDidMount () {
-  const playlistId = this.props.match.params.playlistId;
-  axios.get(`/api/playlists/${playlistId}`)
+  getPlaylistById (playlistId) {
+    axios.get(`/api/playlists/${playlistId}`)
     .then(res => res.data)
     .then(playlist => {
       this.setState({ playlist: playlist });
     });
+  }
+
+ componentDidMount () {
+  const playlistId = this.props.match.params.playlistId;
+  this.getPlaylistById(playlistId)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.match.params.playlistId !== nextProps.match.params.playlistId) {
+      this.getPlaylistById(nextProps.match.params.playlistId)
+    }
   }
 
   render () {
