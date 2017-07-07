@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export default class extends Component {
   constructor() {
@@ -20,6 +21,11 @@ export default class extends Component {
 
   handleSubmit (event) {
     console.log(this.state.inputValue);
+    axios.post('/api/playlists/', { name: this.state.inputValue })
+      .then(res => res.data)
+      .then(result => {
+        console.log(result) // response json from the server!
+    });
     this.setState({ inputValue: "" })
     event.preventDefault();
   }
