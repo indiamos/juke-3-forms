@@ -20,12 +20,7 @@ export default class extends Component {
   }
 
   handleSubmit (event) {
-    console.log(this.state.inputValue);
-    axios.post('/api/playlists/', { name: this.state.inputValue })
-      .then(res => res.data)
-      .then(result => {
-        console.log(result) // response json from the server!
-    });
+    this.props.addPlaylist(this.state.inputValue);
     this.setState({ inputValue: "" })
     event.preventDefault();
   }
